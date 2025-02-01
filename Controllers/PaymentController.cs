@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Noje_MenuAPI.Data;
 using NojeMenu_API.Models;
 using System.Net;
+using Stripe;
 
 namespace NojeMenu_API.Controllers
 {
@@ -37,7 +38,23 @@ namespace NojeMenu_API.Controllers
 
             #region Create Payment Intent
 
-            
+            StripeConfiguration.ApiKey = _configuration["StripeSettings:SecretKey"];
+            shoppingCart.CartTotal = shoppingCart.CartItems.Sum(u => u.Quantity * u.MenuItem.Price);
+
+            PaymentIntentCreateOptions options = new()
+            {
+                Amount = (int)(shoppingCart.CartTotal * 100),
+                Currency = "usd",
+                PaymentMethodTypes = new List<string>
+                {
+                    "card",
+                },
+            };
+            PaymentIntentService service = new();
+            PaymentIntent response = service.Create(options);
+            shoppingCart.StripePaymentIntentID = response.Id;
+            shoppingCart.ClientSecret = response.ClientSecret;
+
             #endregion
 
             _response.Result = shoppingCart;
