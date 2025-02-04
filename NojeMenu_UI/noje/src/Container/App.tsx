@@ -4,6 +4,9 @@ import Footer from '../Components/Layout/Footer.tsx';
 import { useState, useEffect } from "react";
 import { menuItemModel } from '../Interfaces';
 import Home from '../Pages/Home.tsx';
+import { Routes, Route } from 'react-router-dom';
+import NotFound from '../Pages/NotFound.tsx';
+import MenuItemDetails from '../Pages/MenuItemDetails.tsx';
 
 
 
@@ -26,7 +29,16 @@ function App() {
  return ( 
  <div>
     <Header />
-    <Home/>
+    <div className="pb-5">
+      <Routes>
+     <Route path="/" element={<Home />}></Route> 
+     <Route path="/menuItemDetails/:menuItemID"
+      element={<MenuItemDetails />}>
+     </Route> 
+     <Route path="*" element={<NotFound />}></Route> 
+     
+      </Routes>
+    </div>
     <Footer />
     </div>
   );
