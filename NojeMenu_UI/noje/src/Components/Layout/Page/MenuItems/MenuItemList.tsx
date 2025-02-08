@@ -1,7 +1,7 @@
 import React from 'react' 
 import { useState, useEffect } from "react";
 import { menuItemModel } from '../../../../Interfaces';
-import MenuItemCard from '../MenuItems/MenuItemCard';
+import MenuItemCard from '../MenuItems/MenuItemCard.tsx';
 
 function MenuItemList() {
 
