@@ -23,5 +23,5 @@ const menuItemApi = createApi({
     }),
 });
 
-export const {useGetMenuItemsQuery, useLazyGetMenuItemByIdQuery} = menuItemApi;
+export const {useGetMenuItemsQuery, useGetMenuItemByIdQuery} = menuItemApi;
 export default menuItemApi;
