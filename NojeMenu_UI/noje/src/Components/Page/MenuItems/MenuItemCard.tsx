@@ -1,5 +1,5 @@
 import React from 'react'
-import { menuItemModel } from '../../../../Interfaces';
+import { menuItemModel } from '../../../Interfaces';
 import { Link } from 'react-router-dom';
 
 interface Props {

@@ -1,5 +1,5 @@
 import React from 'react'
-import MenuItemList from '../Components/Layout/Page/MenuItems/MenuItemList.tsx';
+import MenuItemList from '../Components/Page/MenuItems/MenuItemList.tsx';
 
 
 
