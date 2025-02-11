@@ -1,8 +1,9 @@
-import React from 'react';
+import React from 'react'
 
 function CartSummary() {
-  return <div>CartSummary</div>;
-  
-};
+  return (
+    <div>CartSummary</div>
+  )
+}
 
-export default CartSummary;
+export default CartSummary

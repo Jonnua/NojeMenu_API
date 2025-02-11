@@ -25,7 +25,8 @@ export default function Header() {
         <li className="nav-item">
           <NavLink className="nav-link" 
           aria-current="page"
-           to="/shoppingCart">
+           to="/shoppingCart"
+           >
 
           <i className="bi bi-cart"></i>
             </NavLink>
