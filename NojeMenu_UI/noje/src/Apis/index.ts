@@ -1,3 +1,2 @@
-import menuItemApi from "./menuItemApi";
-
-export { menuItemApi };
+import { default as menuItemApi, default as shoppingCartApi } from "./menuItemApi";
+export { menuItemApi, shoppingCartApi };
