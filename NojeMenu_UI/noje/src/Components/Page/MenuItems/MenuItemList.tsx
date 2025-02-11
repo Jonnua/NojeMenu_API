@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { menuItemModel } from "../../../Interfaces";
-import MenuItemCard from "../MenuItems/MenuItemCard.tsx";
-import { useGetMenuItemsQuery } from "../../../Apis/menuItemApi.ts";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { useGetMenuItemsQuery } from "../../../Apis/menuItemApi.ts";
+import { menuItemModel } from "../../../Interfaces";
 import { setMenuItem } from "../../../Storage/Redux/menuItemSlice.ts";
+import MenuItemCard from "../MenuItems/MenuItemCard.tsx";
+import MainLoader from "./Common/MainLoader.tsx";
 
 function MenuItemList() {
 
@@ -16,10 +17,10 @@ function MenuItemList() {
     if(!isLoading){
       dispatch(setMenuItem(data.result));
     }
-  }, []);
+  }, [isLoading]);
 
   if(isLoading){
-    return <div>Loading...</div>
+    return <MainLoader/>;
   }
   
     

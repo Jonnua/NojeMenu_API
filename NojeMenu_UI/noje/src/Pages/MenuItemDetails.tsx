@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useGetMenuItemByIdQuery } from "../Apis/menuItemApi.ts";
 import { useUpdateShoppingCartMutation } from '../Apis/shoppingCartApi.ts';
+import MainLoader from '../Components/Page/MenuItems/Common/MainLoader.tsx';
+import MiniLoader from '../Components/Page/MenuItems/Common/MiniLoader.tsx';
 ///User ID -  223ad5f1-ef4c-4883-9ced-03862ab4f63f 
 
 function MenuItemDetails() {
@@ -27,13 +29,13 @@ function MenuItemDetails() {
     const handleAddToCart = async (menuItemId:number)=>{
       setIsAddingToCart(true);
 
-      const respone = await updateShoppingCart({
+      const response = await updateShoppingCart({
         menuItemId:menuItemId,
         updateQuantityBy:quantity,
         userId:"223ad5f1-ef4c-4883-9ced-03862ab4f63f",
       });
 
-      console.log(respone);
+      console.log(response);
       setIsAddingToCart(false);
     };
 
@@ -86,10 +88,16 @@ function MenuItemDetails() {
         </span>
         <div className="row pt-4">
           <div className="col-5">
-            <button className="btn btn-success form-control" 
+            {isAddingToCart?(
+              <button disabled className="btn btn-success form-control">
+                <MiniLoader/>
+              </button>
+           ):(
+               <button className="btn btn-success form-control" 
             onClick={() => handleAddToCart(data.result?.id)}>
               Add to Cart
-            </button>
+            </button>)}
+           
           </div>
 
           <div className="col-5">
@@ -114,15 +122,11 @@ function MenuItemDetails() {
       className="d-flex justify-content-center"
       style={{width: "100%"}}
     >
-    <div>Loading...</div>
-    </div>    
+    <MainLoader/>
+     </div>
     )}
-    
-        
-    
   </div>
-    
-  )
+  );
 }
 
 export default MenuItemDetails
