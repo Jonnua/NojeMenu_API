@@ -10,7 +10,7 @@ function CartSummary() {
     const[updateShoppingCart] = useUpdateShoppingCartMutation();
     const shoppingCartFromStore : cartItemModel[] = useSelector(
         (state : RootState) => state.shoppingCartStore.cartItems ?? []
-    )
+    );
 
     if(!shoppingCartFromStore) {
         return <div>Shopping Cart Empty</div>;
