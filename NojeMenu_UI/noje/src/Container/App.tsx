@@ -10,6 +10,8 @@ import MenuItemDetails from '../Pages/MenuItemDetails.tsx';
 import NotFound from '../Pages/NotFound.tsx';
 import ShoppingCart from '../Pages/ShoppingCart.tsx';
 import { setShoppingCart } from '../Storage/Redux/shoppingCartSlice.ts';
+import Register from '../Pages/Register.tsx';
+import Login from '../Pages/Login.tsx';
 
 function App() {
   const dispatch = useDispatch();
@@ -48,7 +50,9 @@ useEffect(() => {
       element={<MenuItemDetails />}>
      </Route> 
      <Route path="/shoppingCart" element={<ShoppingCart/>}></Route> 
-     <Route path="*" element={<NotFound />}></Route> 
+     <Route path="/login" element={<Login />} />
+     <Route path="/register" element={<Register />} />
+     <Route path="*" element={<NotFound />}  />
       </Routes>
     </div>
     <Footer />
