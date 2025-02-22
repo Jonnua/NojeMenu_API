@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { SD_Roles } from "../Utility/SD.ts";
-import { inputHelper } from "../Helper"
+import inputHelper from "../Helper/inputHelper.ts";
 
 function Register() {
   const [loading, setLoading] = useState(false);
