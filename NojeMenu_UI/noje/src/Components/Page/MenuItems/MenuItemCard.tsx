@@ -1,18 +1,27 @@
 import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import { useSelector } from "react-redux";
+import { Link, useNavigate } from 'react-router-dom';
 import { useUpdateShoppingCartMutation } from "../../../Apis/shoppingCartApi.ts";
 import toastNotify from "../../../Helper/taostNotify.ts";
-import { apiResponse, menuItemModel } from '../../../Interfaces';
+import { apiResponse, menuItemModel, userModel } from '../../../Interfaces';
+import { RootState } from "../../../Storage/Redux/store";
 import MiniLoader from "./Common/MiniLoader.tsx";
+
+
 interface Props {
     menuItem: menuItemModel;
 }
 
 function MenuItemCard(props:Props) {
+  const navigate = useNavigate();
   const [isAddingToCart, setIsAddingToCart] = useState<boolean>(false);
   const [updateShoppingCart] = useUpdateShoppingCartMutation();
-
+  const userData : userModel = useSelector((state: RootState) => state.userAuthStore);
   const handleAddToCart = async (menuItemId:number)=>{
+    if(!userData.id){
+      navigate("/login");
+      return;
+    }
     setIsAddingToCart(true);
 
     const response : apiResponse = await updateShoppingCart({

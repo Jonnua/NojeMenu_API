@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useGetMenuItemByIdQuery } from "../Apis/menuItemApi.ts";
 import { useUpdateShoppingCartMutation } from '../Apis/shoppingCartApi.ts';
@@ -6,6 +7,8 @@ import MainLoader from '../Components/Page/MenuItems/Common/MainLoader.tsx';
 import MiniLoader from '../Components/Page/MenuItems/Common/MiniLoader.tsx';
 import toastNotify from '../Helper/taostNotify.ts';
 import apiResponse from '../Interfaces/apiResponse.ts';
+import userModel from '../Interfaces/userModel.ts';
+import { RootState } from '../Storage/Redux/store.ts';
 ///User ID -  223ad5f1-ef4c-4883-9ced-03862ab4f63f 
 
 function MenuItemDetails() {
@@ -15,7 +18,7 @@ function MenuItemDetails() {
   const [quantity, setQuantity] = useState(1);
   const [isAddingToCart, setIsAddingToCart] = useState<boolean>(false);
   const [updateShoppingCart] = useUpdateShoppingCartMutation();
-
+  const userData : userModel = useSelector((state: RootState) => state.userAuthStore);
 
   //console.log(data);
 
@@ -29,6 +32,10 @@ function MenuItemDetails() {
     };
 
     const handleAddToCart = async (menuItemId:number)=>{
+      if(!userData.id){
+        navigate("/login");
+        return;
+      }
       setIsAddingToCart(true);
 
       const response : apiResponse = await updateShoppingCart({
