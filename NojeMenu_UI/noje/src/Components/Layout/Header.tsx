@@ -78,7 +78,7 @@ export default function Header() {
                 </ul>
               </li>
               <div className="d-flex" style={{ marginLeft: "auto" }}>
-                <li className="nav-item ">
+                <li className="nav-item">
                   <button
                     className="btn btn-success btn-outlined rounded-pill text-white mx-2"
                     style={{

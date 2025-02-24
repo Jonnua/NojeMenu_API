@@ -1,6 +1,7 @@
+import apiResponse from "./apiResponse";
 import cartItemModel from "./cartItemModel";
 import menuItemModel from "./menuItemModel";
 import shoppingCartModel from "./shoppingCartModel";
 import userModel from "./userModel";
-export type { cartItemModel, menuItemModel, shoppingCartModel, userModel };
+export type { apiResponse, cartItemModel, menuItemModel, shoppingCartModel, userModel };
 

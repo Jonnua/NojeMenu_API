@@ -1,9 +1,52 @@
-import React from "react";
+import { jwtDecode } from "jwt-decode";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useLoginUserMutation } from "../Apis/authApi.ts";
+import inputHelper from "../Helper/inputHelper.ts";
+import apiResponse from "../Interfaces/apiResponse.ts";
+import userModel from "../Interfaces/userModel.ts";
+import { setLoggedInUser } from "../Storage/Redux/userAuthSlice.ts";
 
 function Login(){
+  const [error, setError] = useState("");
+  const [loginUser] = useLoginUserMutation();
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const [userInput, setUserInput] = useState({
+    userName: "",
+    password: "",
+  });
+
+const handleUserInput = (e: React.ChangeEvent<HTMLInputElement>) =>{
+  const tempData = inputHelper(e, userInput);
+  setUserInput(tempData);
+};
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      setLoading(true);
+      const response : apiResponse = await loginUser({
+        userName: userInput.userName,
+        password: userInput.password,
+      });
+      if(response.data){
+        console.log(response.data);
+        const {token} = response.data.result;
+        const {fullName, id, email, role} : userModel = jwtDecode(token);
+        localStorage.setItem("token",token);
+        dispatch(setLoggedInUser({fullName, id, email, role}));
+      } else if (response.error){
+        console.log(response.error.data.errorMessages[0]);
+        setError(response.error.data.errorMessages[0]);
+      }
+  
+      setLoading(false);
+    };
+
+
     return( 
          <div className="container text-center">
-        <form method="post">
+        <form method="post" onSubmit={handleSubmit}>
           <h1 className="mt-5">Login</h1>
           <div className="mt-5">
             <div className="col-sm-6 offset-sm-3 col-xs-12 mt-4">
@@ -12,6 +55,9 @@ function Login(){
                 className="form-control"
                 placeholder="Enter Username"
                 required
+                name="userName"
+                value={userInput.userName}
+                onChange={handleUserInput}
               />
             </div>
   
@@ -21,11 +67,15 @@ function Login(){
                 className="form-control"
                 placeholder="Enter Password"
                 required
+                name="password"
+                value={userInput.password}
+                onChange={handleUserInput}
               />
             </div>
           </div>
   
           <div className="mt-2">
+            {error && <p className="text-danger">{error}</p>}
             <button
               type="submit"
               className="btn btn-success"
