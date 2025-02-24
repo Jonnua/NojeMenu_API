@@ -4,6 +4,8 @@ import { useGetMenuItemByIdQuery } from "../Apis/menuItemApi.ts";
 import { useUpdateShoppingCartMutation } from '../Apis/shoppingCartApi.ts';
 import MainLoader from '../Components/Page/MenuItems/Common/MainLoader.tsx';
 import MiniLoader from '../Components/Page/MenuItems/Common/MiniLoader.tsx';
+import toastNotify from '../Helper/taostNotify.ts';
+import apiResponse from '../Interfaces/apiResponse.ts';
 ///User ID -  223ad5f1-ef4c-4883-9ced-03862ab4f63f 
 
 function MenuItemDetails() {
@@ -29,13 +31,15 @@ function MenuItemDetails() {
     const handleAddToCart = async (menuItemId:number)=>{
       setIsAddingToCart(true);
 
-      const response = await updateShoppingCart({
+      const response : apiResponse = await updateShoppingCart({
         menuItemId:menuItemId,
         updateQuantityBy:quantity,
         userId:"223ad5f1-ef4c-4883-9ced-03862ab4f63f",
       });
 
-      console.log(response);
+      if(response.data && response.data.isSuccess){
+        toastNotify("Item added to cart successfully!");
+      }
       setIsAddingToCart(false);
     };
 
