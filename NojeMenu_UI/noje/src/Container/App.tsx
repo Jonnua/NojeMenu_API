@@ -1,6 +1,6 @@
 import { jwtDecode } from 'jwt-decode';
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import { useGetShoppingCartQuery } from '../Apis/shoppingCartApi.ts';
 import Footer from '../Components/Layout/Footer.tsx';
@@ -16,11 +16,13 @@ import NotFound from '../Pages/NotFound.tsx';
 import Register from '../Pages/Register.tsx';
 import ShoppingCart from '../Pages/ShoppingCart.tsx';
 import { setShoppingCart } from '../Storage/Redux/shoppingCartSlice.ts';
+import { RootState } from '../Storage/Redux/store.ts';
 import { setLoggedInUser } from '../Storage/Redux/userAuthSlice.ts';
 function App() {
   const dispatch = useDispatch();
+  const userData : userModel = useSelector((state: RootState) => state.userAuthStore);
 
-const {data,isLoading} = useGetShoppingCartQuery("223ad5f1-ef4c-4883-9ced-03862ab4f63f");
+const {data,isLoading} = useGetShoppingCartQuery(userData.id);
 
 
   useEffect(() => {
@@ -32,8 +34,6 @@ const {data,isLoading} = useGetShoppingCartQuery("223ad5f1-ef4c-4883-9ced-03862a
       }
   },[]);
 
-
-    
 
 
 useEffect(() => {

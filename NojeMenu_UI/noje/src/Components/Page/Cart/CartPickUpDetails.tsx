@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import inputHelper from '../../../Helper/inputHelper.ts';
-import { cartItemModel } from '../../../Interfaces';
+import { cartItemModel, menuItemModel } from '../../../Interfaces';
 import { RootState } from '../../../Storage/Redux/store';
 import MiniLoader from '../MenuItems/Common/MiniLoader.tsx';
 export default function CartPickUpDetails() {
@@ -34,7 +34,19 @@ const handleSubmit = async(e: React.FormEvent<HTMLFormElement>)=>{
     e.preventDefault();
     setLoading(true);
 };
+const [menuItems, setMenuItems] = useState<menuItemModel[]>([]);
 
+ useEffect(() => {
+  fetch("https://nojemenuapi.azurewebsites.net/api/MenuItem")
+  .then((response) => response.json ())
+  .then((data) => {
+    console.log(data);
+    setMenuItems(data.result);
+
+
+  });
+
+ }, []); 
 
   return ( 
   <div className="border pb-5 pt-3">

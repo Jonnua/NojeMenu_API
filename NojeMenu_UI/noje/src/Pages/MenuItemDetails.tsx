@@ -9,7 +9,6 @@ import toastNotify from '../Helper/taostNotify.ts';
 import apiResponse from '../Interfaces/apiResponse.ts';
 import userModel from '../Interfaces/userModel.ts';
 import { RootState } from '../Storage/Redux/store.ts';
-///User ID -  223ad5f1-ef4c-4883-9ced-03862ab4f63f 
 
 function MenuItemDetails() {
   const { menuItemId } = useParams();
@@ -41,7 +40,7 @@ function MenuItemDetails() {
       const response : apiResponse = await updateShoppingCart({
         menuItemId:menuItemId,
         updateQuantityBy:quantity,
-        userId:"223ad5f1-ef4c-4883-9ced-03862ab4f63f",
+        userId: userData.id,
       });
 
       if(response.data && response.data.isSuccess){
@@ -50,7 +49,7 @@ function MenuItemDetails() {
       setIsAddingToCart(false);
     };
 
-
+   
 
   return (
     <div className="container pt-4 pt-md-5">
