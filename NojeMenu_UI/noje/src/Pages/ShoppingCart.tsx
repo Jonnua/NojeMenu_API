@@ -1,6 +1,7 @@
 import React from 'react';
 import CartPickUpDetails from '../Components/Page/Cart/CartPickUpDetails.tsx';
 import CartSummary from '../Components/Page/Cart/CartSummary.tsx';
+import withAuth from '../HOC/withAuth.tsx';
 
 function ShoppingCart() {
   return (
@@ -13,4 +14,4 @@ function ShoppingCart() {
   )
 }
 
-export default ShoppingCart;
+export default withAuth(ShoppingCart);

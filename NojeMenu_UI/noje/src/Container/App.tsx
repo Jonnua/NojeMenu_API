@@ -6,6 +6,9 @@ import { useGetShoppingCartQuery } from '../Apis/shoppingCartApi.ts';
 import Footer from '../Components/Layout/Footer.tsx';
 import Header from '../Components/Layout/Header.tsx';
 import { userModel } from '../Interfaces';
+import AccessDenied from '../Pages/AccessDenied.tsx';
+import AuthenticationTest from '../Pages/AuthenticationTest.tsx';
+import AuthenticationTestAdmin from '../Pages/AuthenticationTestAdmin.tsx';
 import Home from '../Pages/Home.tsx';
 import Login from '../Pages/Login.tsx';
 import MenuItemDetails from '../Pages/MenuItemDetails.tsx';
@@ -54,10 +57,22 @@ useEffect(() => {
      <Route path="/shoppingCart" element={<ShoppingCart/>}></Route> 
      <Route path="/login" element={<Login />} />
      <Route path="/register" element={<Register />} />
-     <Route path="*" element={<NotFound />}  />
+     
+    <Route 
+    path="/authentication"
+    element={<AuthenticationTest />}
+    ></Route>
+    <Route 
+    path="/authorization"
+    element={<AuthenticationTestAdmin />}
+    ></Route>
+    <Route path="/accessDenied" element={<AccessDenied />} />
+
+     <Route path="*" element={<NotFound />}></Route>
       </Routes>
     </div>
     <Footer />
+
     </div>
   );
 }
