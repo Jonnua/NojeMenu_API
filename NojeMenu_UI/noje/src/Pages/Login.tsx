@@ -1,7 +1,9 @@
 import { jwtDecode } from "jwt-decode";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { useLoginUserMutation } from "../Apis/authApi.ts";
+import MainLoader from "../Components/Page/MenuItems/Common/MainLoader.tsx";
 import inputHelper from "../Helper/inputHelper.ts";
 import apiResponse from "../Interfaces/apiResponse.ts";
 import userModel from "../Interfaces/userModel.ts";
@@ -12,6 +14,7 @@ function Login(){
   const [loginUser] = useLoginUserMutation();
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [userInput, setUserInput] = useState({
     userName: "",
     password: "",
@@ -35,6 +38,7 @@ const handleUserInput = (e: React.ChangeEvent<HTMLInputElement>) =>{
         const {fullName, id, email, role} : userModel = jwtDecode(token);
         localStorage.setItem("token",token);
         dispatch(setLoggedInUser({fullName, id, email, role}));
+        navigate("/");
       } else if (response.error){
         console.log(response.error.data.errorMessages[0]);
         setError(response.error.data.errorMessages[0]);
@@ -46,6 +50,7 @@ const handleUserInput = (e: React.ChangeEvent<HTMLInputElement>) =>{
 
     return( 
          <div className="container text-center">
+          {loading && <MainLoader />}
         <form method="post" onSubmit={handleSubmit}>
           <h1 className="mt-5">Login</h1>
           <div className="mt-5">
