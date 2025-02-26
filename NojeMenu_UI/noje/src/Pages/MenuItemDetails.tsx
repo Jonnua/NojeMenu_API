@@ -19,7 +19,6 @@ function MenuItemDetails() {
   const [updateShoppingCart] = useUpdateShoppingCartMutation();
   const userData : userModel = useSelector((state: RootState) => state.userAuthStore);
 
-  //console.log(data);
 
     const handleQuantity = (counter: number)=> {
       let newQuantity = quantity + counter;

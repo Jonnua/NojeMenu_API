@@ -7,5 +7,10 @@ import MenuItemDetails from "./MenuItemDetails";
 import NotFound from "./NotFound";
 import Register from "./Register";
 import ShoppingCart from "./ShoppingCart";
-export { AccessDenied, AuthenticationTest, AuthenticationTestAdmin, Home, Login, MenuItemDetails, NotFound, Register, ShoppingCart };
+import Payment from "./Payment";
+
+export { AccessDenied, AuthenticationTest,
+     AuthenticationTestAdmin, Home, Login,
+     MenuItemDetails, NotFound, Register, 
+     ShoppingCart, Payment };
 

@@ -15,6 +15,7 @@ import MenuItemDetails from '../Pages/MenuItemDetails.tsx';
 import NotFound from '../Pages/NotFound.tsx';
 import Register from '../Pages/Register.tsx';
 import ShoppingCart from '../Pages/ShoppingCart.tsx';
+import Payment from '../Pages/Payment.tsx';
 import { setShoppingCart } from '../Storage/Redux/shoppingCartSlice.ts';
 import { RootState } from '../Storage/Redux/store.ts';
 import { setLoggedInUser } from '../Storage/Redux/userAuthSlice.ts';
@@ -38,7 +39,6 @@ const {data,isLoading} = useGetShoppingCartQuery(userData.id);
 
 useEffect(() => {
   if(!isLoading){
-    console.log(data.result);
     dispatch(setShoppingCart(data.result?.cartItems));
   }
 },[data]);
@@ -67,7 +67,7 @@ useEffect(() => {
     element={<AuthenticationTestAdmin />}
     ></Route>
     <Route path="/accessDenied" element={<AccessDenied />} />
-
+    <Route path="/payment" element={<Payment />} />
      <Route path="*" element={<NotFound />}></Route>
       </Routes>
     </div>

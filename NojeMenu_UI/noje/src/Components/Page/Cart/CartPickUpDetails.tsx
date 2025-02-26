@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import inputHelper from '../../../Helper/inputHelper.ts';
-import { cartItemModel, menuItemModel } from '../../../Interfaces';
+import { apiResponse, cartItemModel, menuItemModel } from '../../../Interfaces';
 import { RootState } from '../../../Storage/Redux/store';
 import MiniLoader from '../MenuItems/Common/MiniLoader.tsx';
+import { useInitiatePaymentMutation } from '../../../Apis/paymentApi.ts';
+import { useNavigate } from 'react-router';
 export default function CartPickUpDetails() {
     const [loading, setLoading] = useState(false);
     const shoppingCartFromStore : cartItemModel[] = useSelector(
@@ -24,7 +26,9 @@ export default function CartPickUpDetails() {
         return null;
     });
 
+    const navigate = useNavigate();
     const [userInput, setUserInput] = useState(initialUserData);
+    const [initiatePayment] = useInitiatePaymentMutation();
     const handleUserInput = (e: React.ChangeEvent<HTMLInputElement>)=>{
         const tempData = inputHelper(e,userInput);
         setUserInput(tempData);
@@ -34,6 +38,12 @@ export default function CartPickUpDetails() {
 const handleSubmit = async(e: React.FormEvent<HTMLFormElement>)=>{
     e.preventDefault();
     setLoading(true);
+
+    const {data} : apiResponse = await initiatePayment(userData.id);
+  
+    navigate("/payment", {
+      state: { apiResult: data?.result, userInput},
+    })
 };
 const [menuItems, setMenuItems] = useState<menuItemModel[]>([]);
 
@@ -41,7 +51,6 @@ const [menuItems, setMenuItems] = useState<menuItemModel[]>([]);
   fetch("https://nojemenuapi.azurewebsites.net/api/MenuItem")
   .then((response) => response.json ())
   .then((data) => {
-    console.log(data);
     setMenuItems(data.result);
 
 

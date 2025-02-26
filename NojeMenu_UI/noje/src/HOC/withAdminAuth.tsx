@@ -4,7 +4,6 @@ import { SD_Roles } from "../Utility/SD.ts";
 
 const withAdminAuth = (WrappedComponent : any) => {
 return (props : any) => {
-        console.log("HOC Called");
         const accessToken = localStorage.getItem("token") ?? "";
 
         if(accessToken){

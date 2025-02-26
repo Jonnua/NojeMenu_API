@@ -5,6 +5,7 @@ import shoppingCartApi from "../../Apis/shoppingCartApi.ts";
 import { menuItemReducer } from "../Redux/menuItemSlice.ts";
 import { shoppingCartReducer } from "./shoppingCartSlice.ts";
 import { userAuthReducer } from "./userAuthSlice.ts";
+import paymentApi from "../../Apis/paymentApi.ts";
 
 const store = configureStore({
     reducer: {
@@ -14,11 +15,13 @@ const store = configureStore({
       [menuItemApi.reducerPath]: menuItemApi.reducer,
       [shoppingCartApi.reducerPath]: shoppingCartApi.reducer,
       [authApi.reducerPath]: authApi.reducer,
+      [paymentApi.reducerPath]: paymentApi.reducer,
     },
     middleware: (getDefaultMiddleware) => 
       getDefaultMiddleware()
     .concat(menuItemApi.middleware)   
     .concat(authApi.middleware)
+    .concat(paymentApi.middleware)
     .concat(shoppingCartApi.middleware),
 });
 
