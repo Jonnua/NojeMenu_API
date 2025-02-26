@@ -34,6 +34,14 @@ export default function CartPickUpDetails() {
         setUserInput(tempData);
     };
 
+    // useEffect(() => {
+    //   setUserInput({
+    //     name: userData.fullName,
+    //     email: userData.email,
+    //     phoneNumber: "",
+    //   });
+    // }, [userData]);
+
 
 const handleSubmit = async(e: React.FormEvent<HTMLFormElement>)=>{
     e.preventDefault();
@@ -43,20 +51,8 @@ const handleSubmit = async(e: React.FormEvent<HTMLFormElement>)=>{
   
     navigate("/payment", {
       state: { apiResult: data?.result, userInput},
-    })
+    });
 };
-const [menuItems, setMenuItems] = useState<menuItemModel[]>([]);
-
- useEffect(() => {
-  fetch("https://nojemenuapi.azurewebsites.net/api/MenuItem")
-  .then((response) => response.json ())
-  .then((data) => {
-    setMenuItems(data.result);
-
-
-  });
-
- }, []); 
 
   return ( 
   <div className="border pb-5 pt-3">
