@@ -6,6 +6,7 @@ import { menuItemReducer } from "../Redux/menuItemSlice.ts";
 import { shoppingCartReducer } from "./shoppingCartSlice.ts";
 import { userAuthReducer } from "./userAuthSlice.ts";
 import paymentApi from "../../Apis/paymentApi.ts";
+import orderApi from "../../Apis/orderApi.ts";
 
 const store = configureStore({
     reducer: {
@@ -16,13 +17,16 @@ const store = configureStore({
       [shoppingCartApi.reducerPath]: shoppingCartApi.reducer,
       [authApi.reducerPath]: authApi.reducer,
       [paymentApi.reducerPath]: paymentApi.reducer,
+      [orderApi.reducerPath]: orderApi.reducer,
     },
     middleware: (getDefaultMiddleware) => 
       getDefaultMiddleware()
     .concat(menuItemApi.middleware)   
     .concat(authApi.middleware)
     .concat(paymentApi.middleware)
-    .concat(shoppingCartApi.middleware),
+    .concat(shoppingCartApi.middleware)
+    .concat(orderApi.middleware),
+    
 });
 
 export type RootState = ReturnType<typeof store.getState>;
