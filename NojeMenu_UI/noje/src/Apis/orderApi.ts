@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const orderApi = createApi({
   reducerPath: "orderApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://nojemenuapi.azurewebsites.net/api/",
+    baseUrl: "https://localhost:7106/api/",
   }),
   endpoints: (builder) => ({
     CreateOrder: builder.mutation({

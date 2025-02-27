@@ -1,4 +1,4 @@
-import jwtDecode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
@@ -13,9 +13,9 @@ import Home from '../Pages/Home.tsx';
 import Login from '../Pages/Login.tsx';
 import MenuItemDetails from '../Pages/MenuItemDetails.tsx';
 import NotFound from '../Pages/NotFound.tsx';
+import Payment from '../Pages/Payment.tsx';
 import Register from '../Pages/Register.tsx';
 import ShoppingCart from '../Pages/ShoppingCart.tsx';
-import Payment from '../Pages/Payment.tsx';
 import { setShoppingCart } from '../Storage/Redux/shoppingCartSlice.ts';
 import { RootState } from '../Storage/Redux/store.ts';
 import { setLoggedInUser } from '../Storage/Redux/userAuthSlice.ts';

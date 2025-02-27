@@ -1,4 +1,4 @@
-import jwtDecode from "jwt-decode";
+import { jwtDecode } from 'jwt-decode';
 import React from "react";
 import { SD_Roles } from "../Utility/SD.ts";
 
