@@ -6,7 +6,7 @@ const orderApi = createApi({
     baseUrl: "https://nojemenuapi.azurewebsites.net/api/",
   }),
   endpoints: (builder) => ({
-    initiatePayment: builder.mutation({
+    CreateOrder: builder.mutation({
       query: (orderDetails) => ({
         url: "order",
         method: "POST",
@@ -21,5 +21,5 @@ const orderApi = createApi({
   }),
 });
 
-export const { useInitiatePaymentMutation } = orderApi;
+export const { useCreateOrderMutation } = orderApi;
 export default orderApi;

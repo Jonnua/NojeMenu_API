@@ -2,12 +2,20 @@ import React from 'react';
 import {useStripe, useElements, PaymentElement} from '@stripe/react-stripe-js';
 import { useState } from "react";
 import toastNotify from '../../../Helper/taostNotify.ts';
+import { orderSummaryProps } from '../Order/orderSummaryProps.ts';
+import cartItemModel from '../../../Interfaces/cartItemModel.ts';
+import { useCreateOrderMutation } from '../../../Apis/orderApi.ts';
+import apiResponse from '../../../Interfaces/apiResponse.ts';
+import { SD_Status } from '../../../Utility/SD.ts';
 
 
-const PaymentForm = () => { 
+const PaymentForm = ({ data, userInput }: orderSummaryProps) => { 
   const stripe = useStripe();
   const elements = useElements();
+  const[createOrder] = useCreateOrderMutation();
   const [isProcessing, setIsProcessing] = useState(false);
+  console.log("data");
+  console.log(data);
   const handleSubmit = async (event : React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -24,14 +32,56 @@ setIsProcessing(true);
       redirect: "if_required",
     });
 
+    
+
     if (result.error) {
       // Show error to your customer (for example, payment details incomplete)
       toastNotify("An unexpected error occured.", "error");
       setIsProcessing(false);
     } else {
      console.log(result);
-    }
+  // "pickupAddress": "string",
+  // "applicationUserId": "string",
+
+  // "stripePaymentIntentId": "string",
+  // "status": "string",
+
+  let grandTotal = 0;
+  let totalItems = 0;
+ 
+
+      const orderDetailsDTO: any = [];
+      data.cartItems.forEach((item:cartItemModel)=>{
+        const tempOrderDetail: any = {};
+        tempOrderDetail["menuItemId"] = item.menuItem?.id;
+        tempOrderDetail["quantity"] = item.quantity;
+        tempOrderDetail["itemName"] = item.menuItem?.name;
+        tempOrderDetail["price"] = item.menuItem?.price;
+        orderDetailsDTO.push(tempOrderDetail);
+        grandTotal+= item.quantity!*item.menuItem?.price! ;
+        totalItems+= item.quantity!;
+    }) 
+
+
+
+   const response: apiResponse = await createOrder({
+    pickupName: userInput.name,
+   pickupPhoneNumber: userInput.phoneNumber,
+    pickupEmail: userInput.email,
+    totalItems: totalItems,
+     orderTotal: grandTotal,
+     stripePaymentIntentID: data.stripePaymentId,
+     applicationUserId: data.userId,
+     status: result.paymentIntent.status === "succeeded"? SD_Status.CONFIRMED: SD_Status
+
+   });
+
+    console.log(response);
+  }
   };
+
+
+  // "status": "string",
 
   return (
     <form onSubmit={handleSubmit}>
