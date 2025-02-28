@@ -9,6 +9,19 @@ import OrderConfirmed from "./Order/OrderConfirmed.tsx";
 import Payment from "./Payment.tsx";
 import Register from "./Register.tsx";
 import ShoppingCart from "./ShoppingCart.tsx";
+import MyOrders from "./Order/MyOrders.tsx";
 
-export { AccessDenied, AuthenticationTest, AuthenticationTestAdmin, Home, Login, MenuItemDetails, NotFound, OrderConfirmed, Payment, Register, ShoppingCart };
-
+export {
+  MyOrders,
+  AccessDenied,
+  AuthenticationTest,
+  AuthenticationTestAdmin,
+  Home,
+  Login,
+  MenuItemDetails,
+  NotFound,
+  OrderConfirmed,
+  Payment,
+  Register,
+  ShoppingCart,
+};

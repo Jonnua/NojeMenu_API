@@ -1,4 +1,4 @@
-import { jwtDecode } from 'jwt-decode';
+import jwt_decode from "jwt-decode";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -34,7 +34,7 @@ const handleUserInput = (e: React.ChangeEvent<HTMLInputElement>) =>{
       });
       if(response.data){
         const {token} = response.data.result;
-        const {fullName, id, email, role} : userModel = jwtDecode(token);
+        const {fullName, id, email, role} : userModel = jwt_decode(token);
         localStorage.setItem("token",token);
         dispatch(setLoggedInUser({fullName, id, email, role}));
         navigate("/");

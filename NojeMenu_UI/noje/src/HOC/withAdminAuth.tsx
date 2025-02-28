@@ -1,4 +1,4 @@
-import { jwtDecode } from 'jwt-decode';
+import jwt_decode from "jwt-decode";
 import React from "react";
 import { SD_Roles } from "../Utility/SD.ts";
 
@@ -10,7 +10,7 @@ return (props : any) => {
             const decode: {
                 role: string;
 
-            } = jwtDecode(accessToken);
+            } = jwt_decode(accessToken);
             if(decode.role!==SD_Roles.ADMIN){
                 window.location.replace("/accessDenied");
                 return null;
