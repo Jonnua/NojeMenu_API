@@ -1,9 +1,9 @@
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 import React from 'react';
 import { useLocation } from 'react-router';
-import {Elements} from '@stripe/react-stripe-js';
-import {loadStripe} from '@stripe/stripe-js';
-import  PaymentForm  from '../Components/Page/Payment/PaymentForm.tsx';
 import OrderSummary from '../Components/Page/Order/OrderSummary.tsx';
+import PaymentForm from '../Components/Page/Payment/PaymentForm.tsx';
 
 function Payment() {
   const {
@@ -26,7 +26,7 @@ function Payment() {
             <div className="col-md-4 offset-md-1">
             <h3 className="text-success">Payment</h3>
             <div className="mt-5">
-    < PaymentForm  data={apiResult} userInput={userInput}/>
+          <PaymentForm data={apiResult} userInput={userInput}/>
           </div>
         </div>
       </div>

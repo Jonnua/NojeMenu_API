@@ -1,16 +1,14 @@
-import AccessDenied from "./AccessDenied";
-import AuthenticationTest from "./AuthenticationTest";
-import AuthenticationTestAdmin from "./AuthenticationTestAdmin";
-import Home from "./Home";
-import Login from "./Login";
-import MenuItemDetails from "./MenuItemDetails";
-import NotFound from "./NotFound";
-import Register from "./Register";
-import ShoppingCart from "./ShoppingCart";
-import Payment from "./Payment";
+import AccessDenied from "./AccessDenied.tsx";
+import AuthenticationTest from "./AuthenticationTest.tsx";
+import AuthenticationTestAdmin from "./AuthenticationTestAdmin.tsx";
+import Home from "./Home.tsx";
+import Login from "./Login.tsx";
+import MenuItemDetails from "./MenuItemDetails.tsx";
+import NotFound from "./NotFound.tsx";
+import Payment from "./Payment.tsx";
+import Register from "./Register.tsx";
+import ShoppingCart from "./ShoppingCart.tsx";
 
-export { AccessDenied, AuthenticationTest,
-     AuthenticationTestAdmin, Home, Login,
-     MenuItemDetails, NotFound, Register, 
-     ShoppingCart, Payment };
+
+export { AccessDenied, AuthenticationTest, AuthenticationTestAdmin, Home, Login, MenuItemDetails, NotFound, Payment, Register, ShoppingCart };
 

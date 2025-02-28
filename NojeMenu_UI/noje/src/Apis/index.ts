@@ -1,5 +1,7 @@
-import { default as menuItemApi, default as shoppingCartApi } from "./menuItemApi";
 import authApi from "./authApi";
-import paymentApi from "./paymentApi";
+import menuItemApi from "./menuItemApi";
 import orderApi from "./orderApi";
-export { menuItemApi, shoppingCartApi, authApi, paymentApi, orderApi };
+import paymentApi from "./paymentApi";
+import shoppingCartApi from "./shoppingCartApi";
+export { authApi, menuItemApi, orderApi, paymentApi, shoppingCartApi };
+

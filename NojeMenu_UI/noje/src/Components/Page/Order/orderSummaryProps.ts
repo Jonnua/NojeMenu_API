@@ -5,14 +5,14 @@ export interface orderSummaryProps{
         id: number;
         cartItems: shoppingCartModel[];
         cartTotal: number;
-        userId:string;
-        stripePaymentIntentId: string;
+        userId: string;
+        stripePaymentIntentId:string;
 
     };
     userInput: {
         name:string;
         email:string;
         phoneNumber:string;
-        pickUpAddress:string;
+        address:string;
     };
 }
