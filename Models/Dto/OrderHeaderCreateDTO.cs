@@ -13,6 +13,7 @@ namespace NojeMenu_API.Models.Dto
         public string PickupEmail { get; set; }
         [Required]
         public string PickupAddress { get; set; }
+        [Required]
 
         public string ApplicationUserId { get; set; }
         public double OrderTotal { get; set; }
