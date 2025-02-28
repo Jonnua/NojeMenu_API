@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
+import { useInitiatePaymentMutation } from '../../../Apis/paymentApi.ts';
 import inputHelper from '../../../Helper/inputHelper.ts';
-import { apiResponse, cartItemModel, menuItemModel } from '../../../Interfaces';
+import { apiResponse, cartItemModel } from '../../../Interfaces';
 import { RootState } from '../../../Storage/Redux/store';
 import MiniLoader from '../MenuItems/Common/MiniLoader.tsx';
-import { useInitiatePaymentMutation } from '../../../Apis/paymentApi.ts';
-import { useNavigate } from 'react-router';
 export default function CartPickUpDetails() {
     const [loading, setLoading] = useState(false);
     const shoppingCartFromStore : cartItemModel[] = useSelector(
@@ -18,6 +18,7 @@ export default function CartPickUpDetails() {
         name: userData.fullName,
         email: userData.email,
         phoneNumber:"",
+        address:"",
     };
 
     shoppingCartFromStore?.map((cartItem: cartItemModel)=>{
@@ -94,6 +95,18 @@ const handleSubmit = async(e: React.FormEvent<HTMLFormElement>)=>{
           className="form-control"
           placeholder="phone number..."
           name="phoneNumber"
+          onChange={handleUserInput}
+          required
+        />
+      </div>
+      <div className="form-group mt-3">
+        Pickup Address 
+        <input
+          type="pickupAddress"
+          value={userInput.address}
+          className="form-control"
+          placeholder="pickup address..."
+          name="address"
           onChange={handleUserInput}
           required
         />

@@ -94,6 +94,7 @@ namespace NojeMenu_API.Controllers
                     PickupEmail = orderHeaderDTO.PickupEmail,
                     PickupName = orderHeaderDTO.PickupName,
                     PickupPhoneNumber = orderHeaderDTO.PickupPhoneNumber,
+                    PickUpAddress = orderHeaderDTO.PickUpAddress,
                     OrderTotal = orderHeaderDTO.OrderTotal,
                     OrderDate = DateTime.Now,
                     StripePaymentIntentId = orderHeaderDTO.StripePaymentIntentId,
@@ -164,6 +165,10 @@ namespace NojeMenu_API.Controllers
                 if (!string.IsNullOrEmpty(orderHeaderUpdateDTO.PickupEmail))
                 {
                     orderFromDb.PickupEmail = orderHeaderUpdateDTO.PickupEmail;
+                }
+                if (!string.IsNullOrEmpty(orderHeaderUpdateDTO.PickUpAddress))
+                {
+                    orderFromDb.PickUpAddress = orderHeaderUpdateDTO.PickUpAddress;
                 }
                 if (!string.IsNullOrEmpty(orderHeaderUpdateDTO.Status))
                 {

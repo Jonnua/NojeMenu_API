@@ -10,6 +10,7 @@ import AccessDenied from '../Pages/AccessDenied.tsx';
 import AuthenticationTest from '../Pages/AuthenticationTest.tsx';
 import AuthenticationTestAdmin from '../Pages/AuthenticationTestAdmin.tsx';
 import Home from '../Pages/Home.tsx';
+import { OrderConfirmed } from '../Pages/index.ts';
 import Login from '../Pages/Login.tsx';
 import MenuItemDetails from '../Pages/MenuItemDetails.tsx';
 import NotFound from '../Pages/NotFound.tsx';
@@ -19,6 +20,7 @@ import ShoppingCart from '../Pages/ShoppingCart.tsx';
 import { setShoppingCart } from '../Storage/Redux/shoppingCartSlice.ts';
 import { RootState } from '../Storage/Redux/store.ts';
 import { setLoggedInUser } from '../Storage/Redux/userAuthSlice.ts';
+
 function App() {
   const dispatch = useDispatch();
   const userData : userModel = useSelector((state: RootState) => state.userAuthStore);
@@ -68,6 +70,7 @@ useEffect(() => {
     ></Route>
     <Route path="/accessDenied" element={<AccessDenied />} />
     <Route path="/payment" element={<Payment />} />
+    <Route path="order/orderconfirmed/:id" element={<OrderConfirmed />}></Route>
      <Route path="*" element={<NotFound />}></Route>
       </Routes>
     </div>

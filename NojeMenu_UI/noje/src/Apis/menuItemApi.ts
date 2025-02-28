@@ -22,5 +22,7 @@ const menuItemApi = createApi({
   }),
 });
 
+//nojemenuapi.azurewebsites.net
+
 export const { useGetMenuItemsQuery, useGetMenuItemByIdQuery } = menuItemApi;
 export default menuItemApi;

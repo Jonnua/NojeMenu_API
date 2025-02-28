@@ -5,10 +5,10 @@ import Home from "./Home.tsx";
 import Login from "./Login.tsx";
 import MenuItemDetails from "./MenuItemDetails.tsx";
 import NotFound from "./NotFound.tsx";
+import OrderConfirmed from "./Order/OrderConfirmed.tsx";
 import Payment from "./Payment.tsx";
 import Register from "./Register.tsx";
 import ShoppingCart from "./ShoppingCart.tsx";
 
-
-export { AccessDenied, AuthenticationTest, AuthenticationTestAdmin, Home, Login, MenuItemDetails, NotFound, Payment, Register, ShoppingCart };
+export { AccessDenied, AuthenticationTest, AuthenticationTestAdmin, Home, Login, MenuItemDetails, NotFound, OrderConfirmed, Payment, Register, ShoppingCart };
 

@@ -22,7 +22,7 @@ const PaymentForm = ({ data, userInput }: orderSummaryProps) => {
     if (!stripe || !elements) {
            return;
     }
-setIsProcessing(true);
+    setIsProcessing(true);
     const result = await stripe.confirmPayment({
       //`Elements` instance that was used to create the Payment Element
       elements,
@@ -64,6 +64,7 @@ setIsProcessing(true);
            pickupAddress: userInput.address,
            totalItems : totalItems,
            orderTotal: grandTotal,
+           orderDetailsDTO: orderDetailsDTO,
            stripePaymentIntentID: data.stripePaymentIntentId,
            applicationUserId: data.userId,
            status: result.paymentIntent.status==="succeeded"
@@ -71,9 +72,18 @@ setIsProcessing(true);
            : SD_Status.PENDING,
         });
         
-        console.log(response);
+    if(response){
+      if(response.data?.result.status===SD_Status.CONFIRMED){
+        navigate(`/order/orderConfirmed/${response.data.result.orderHeaderId}`
+        );
       }
-    };
+        else{
+          navigate("/failed");
+        }
+      }
+    }
+    setIsProcessing(false);
+  };
 
   
 
@@ -81,7 +91,11 @@ setIsProcessing(true);
   return (
     <form onSubmit={handleSubmit}>
       <PaymentElement />
-   <button className="btn btn-success mt-5 w-100">Submit</button>
+   <button disabled={!stripe || isProcessing} className="btn btn-success mt-5 w-100">
+    <span id="button-text">
+    {isProcessing ? "Processing ... " : "Submit Order"}
+    </span>
+   </button>
     </form>
   );
 };

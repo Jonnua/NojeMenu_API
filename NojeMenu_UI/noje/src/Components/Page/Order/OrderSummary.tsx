@@ -1,6 +1,6 @@
 import React from "react";
-import { orderSummaryProps } from "./orderSummaryProps";
 import { cartItemModel } from "../../../Interfaces";
+import { orderSummaryProps } from "./orderSummaryProps";
 
 function OrderSummary({ data, userInput }: orderSummaryProps) {
   return (
@@ -11,6 +11,7 @@ function OrderSummary({ data, userInput }: orderSummaryProps) {
         <div className="border py-3 px-2">Name : {userInput.name}</div>
         <div className="border py-3 px-2">Email : {userInput.email}</div>
         <div className="border py-3 px-2">Phone : {userInput.phoneNumber}</div>
+        <div className="border py-3 px-2">Address : {userInput.address}</div>
         <div className="border py-3 px-2">
           <h4 className="text-success">Menu Items</h4>
           <div className="p-3">
