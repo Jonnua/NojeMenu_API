@@ -14,8 +14,6 @@ const PaymentForm = ({ data, userInput }: orderSummaryProps) => {
   const elements = useElements();
   const [createOrder] = useCreateOrderMutation();
   const [isProcessing, setIsProcessing] = useState(false);
-  console.log("data");
-  console.log(data);
   const handleSubmit = async (event : React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -37,7 +35,7 @@ const PaymentForm = ({ data, userInput }: orderSummaryProps) => {
       toastNotify("An unexpected error occured.", "error");
       setIsProcessing(false);
     } else {
-     console.log(result);
+
      
       
       // "applicationUserId": "string",
