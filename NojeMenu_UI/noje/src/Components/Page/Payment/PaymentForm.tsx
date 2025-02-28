@@ -1,12 +1,11 @@
-import React from 'react';
-import {useStripe, useElements, PaymentElement} from '@stripe/react-stripe-js';
-import { useState } from "react";
-import toastNotify from '../../../Helper/taostNotify.ts';
-import { orderSummaryProps } from '../Order/orderSummaryProps.ts';
-import cartItemModel from '../../../Interfaces/cartItemModel.ts';
+import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js';
+import React, { useState } from 'react';
 import { useCreateOrderMutation } from '../../../Apis/orderApi.ts';
+import toastNotify from '../../../Helper/taostNotify.ts';
 import apiResponse from '../../../Interfaces/apiResponse.ts';
+import cartItemModel from '../../../Interfaces/cartItemModel.ts';
 import { SD_Status } from '../../../Utility/SD.ts';
+import { orderSummaryProps } from '../Order/orderSummaryProps.ts';
 
 
 const PaymentForm = ({ data, userInput }: orderSummaryProps) => { 
@@ -32,7 +31,6 @@ setIsProcessing(true);
       redirect: "if_required",
     });
 
-    
 
     if (result.error) {
       // Show error to your customer (for example, payment details incomplete)
@@ -40,16 +38,10 @@ setIsProcessing(true);
       setIsProcessing(false);
     } else {
      console.log(result);
-  // "pickupAddress": "string",
-  // "applicationUserId": "string",
 
-  // "stripePaymentIntentId": "string",
-  // "status": "string",
 
-  let grandTotal = 0;
-  let totalItems = 0;
- 
-
+      let grandTotal = 0;
+      let totalItems = 0;
       const orderDetailsDTO: any = [];
       data.cartItems.forEach((item:cartItemModel)=>{
         const tempOrderDetail: any = {};
@@ -60,7 +52,7 @@ setIsProcessing(true);
         orderDetailsDTO.push(tempOrderDetail);
         grandTotal+= item.quantity!*item.menuItem?.price! ;
         totalItems+= item.quantity!;
-    }) 
+    });
 
 
 
@@ -68,12 +60,13 @@ setIsProcessing(true);
     pickupName: userInput.name,
    pickupPhoneNumber: userInput.phoneNumber,
     pickupEmail: userInput.email,
+    pickupAddress: userInput.pickUpAddress,
     totalItems: totalItems,
      orderTotal: grandTotal,
-     stripePaymentIntentID: data.stripePaymentId,
+     orderDetailsDTO : orderDetailsDTO,
+     stripePaymentIntentID: data.stripePaymentIntentId,
      applicationUserId: data.userId,
-     status: result.paymentIntent.status === "succeeded"? SD_Status.CONFIRMED: SD_Status
-
+     status: result.paymentIntent.status === "succeeded"? SD_Status.CONFIRMED: SD_Status.PENDING,
    });
 
     console.log(response);

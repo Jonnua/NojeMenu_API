@@ -6,7 +6,7 @@ const orderApi = createApi({
     baseUrl: "https://localhost:7106/api/",
   }),
   endpoints: (builder) => ({
-    CreateOrder: builder.mutation({
+    createOrder: builder.mutation({
       query: (orderDetails) => ({
         url: "order",
         method: "POST",

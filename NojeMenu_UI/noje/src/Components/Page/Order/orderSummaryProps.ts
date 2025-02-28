@@ -6,11 +6,13 @@ export interface orderSummaryProps{
         cartItems: shoppingCartModel[];
         cartTotal: number;
         userId:string;
-        stripePaymentId: string;
+        stripePaymentIntentId: string;
+
     };
     userInput: {
         name:string;
         email:string;
         phoneNumber:string;
+        pickUpAddress:string;
     };
 }
