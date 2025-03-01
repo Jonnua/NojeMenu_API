@@ -10,7 +10,7 @@ import AccessDenied from "../Pages/AccessDenied.tsx";
 import AuthenticationTest from "../Pages/AuthenticationTest.tsx";
 import AuthenticationTestAdmin from "../Pages/AuthenticationTestAdmin.tsx";
 import Home from "../Pages/Home.tsx";
-import { MyOrders, OrderConfirmed } from "../Pages/index.ts";
+import { MyOrders, OrderConfirmed, OrderDetails } from "../Pages/index.ts";
 import Login from "../Pages/Login.tsx";
 import MenuItemDetails from "../Pages/MenuItemDetails.tsx";
 import NotFound from "../Pages/NotFound.tsx";
@@ -72,6 +72,7 @@ function App() {
             element={<OrderConfirmed />}
           ></Route>
           <Route path = "/order/myOrders" element={<MyOrders />} />
+          <Route path = "/order/orderDetails/:id" element={<OrderDetails />} />
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
       </div>
