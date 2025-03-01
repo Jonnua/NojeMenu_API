@@ -11,3 +11,10 @@ export enum SD_Status {
   COMPLETED = "Completed",
   CANCELLED = "Cancelled",
 }
+
+export enum SC_Categories {
+  APPETIZER = "Appetizer",
+  ENTREE = "Entrée",
+  DESSERT = "Dessert",
+  BEVERAGES = "Beverages",
+}

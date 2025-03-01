@@ -1,17 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useCreateMenuItemMutation, useGetMenuItemByIdQuery } from '../../Apis/menuItemApi.ts';
+import { useCreateMenuItemMutation, useGetMenuItemByIdQuery, useUpdateMenuItemMutation } from '../../Apis/menuItemApi.ts';
 import MainLoader from '../../Components/Page/Common/MainLoader.tsx';
 import inputHelper from '../../Helper/inputHelper.ts';
 import toastNotify from '../../Helper/taostNotify.ts';
+import { SC_Categories } from '../../Utility/SD.ts';
+
+const Categories = [
+  SC_Categories.APPETIZER,
+  SC_Categories.BEVERAGES,
+  SC_Categories.DESSERT,
+  SC_Categories.ENTREE,
+];
+
 
 const menuItemData = {
     name: "",
     description: "",
     specialTag: "",
-    category: "",
+    category: Categories[0],
     price: "",
 };
+
+
 
 function MenuItemUpsert() {
     const {id} = useParams();
@@ -21,7 +32,7 @@ function MenuItemUpsert() {
     const [menuItemInputs, setMenuItemInputs] = useState(menuItemData);
     const [loading, setLoading] = useState(false);
     const [createMenuItem] = useCreateMenuItemMutation();
-
+    const [updateMenuItem] = useUpdateMenuItemMutation();
   const {data} = useGetMenuItemByIdQuery(id);
 
   useEffect(() => {
@@ -38,7 +49,7 @@ if(data && data.result){
 }
   },[data])
 
-    const handleMenuItemInput = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>{
+    const handleMenuItemInput = (e: React.ChangeEvent< HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>{
         const tempData = inputHelper(e, menuItemInputs);
         setMenuItemInputs(tempData);
       };
@@ -78,7 +89,7 @@ if(data && data.result){
       const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLoading(true);
-        if(!imageToStore) {
+        if(!imageToStore && !id) {
           toastNotify("please upload an image", "error");
           setLoading(false);
           return;
@@ -88,12 +99,25 @@ if(data && data.result){
 
         formData.append("Name",menuItemInputs.name);
         formData.append("Description",menuItemInputs.description);
-        formData.append("SpecialTag",menuItemInputs.specialTag);
+        formData.append("SpecialTag",menuItemInputs.specialTag ?? "");
         formData.append("Category",menuItemInputs.category);
         formData.append("Price",menuItemInputs.price);
-        formData.append("File",imageToStore);
+        if(imageToDisplay) formData.append("File",imageToStore);
 
-        const response = await createMenuItem(formData);
+        let response;
+
+        if(id){
+          //update
+          formData.append("Id", id);
+          response = await updateMenuItem({data: formData, id});
+          toastNotify("Menu Item updated successfully", "success");
+
+        }else {
+           response = await createMenuItem(formData);
+           toastNotify("Menu Item created successfully", "success");
+        }
+
+       
         if(response){
           setLoading(false);
           navigate("/menuItem/menuitemlist");
@@ -105,7 +129,9 @@ if(data && data.result){
   return (
     <div className="container border mt-5 p-5 bg-light">
       {loading && <MainLoader />}
-    <h3 className="px-2 text-success">Add Menu Item</h3>
+    <h3 className="px-2 text-success">
+      {id ? "Edit Menu Item" : "Add Menu Item"}
+      </h3>
     <form method="post" encType="multipart/form-data" onSubmit={handleSubmit}>
       <div className="row mt-3">
         <div className="col-md-7">
@@ -134,14 +160,18 @@ if(data && data.result){
             value={menuItemInputs.specialTag}
             onChange={handleMenuItemInput}
           />
-          <input
-            type="text"
-            className="form-control mt-3"
-            placeholder="Enter Category"
+          <select
+            className="form-control mt-3 form-select"
             name="category"
             value={menuItemInputs.category}
             onChange={handleMenuItemInput}
-          />
+          >
+              <option value="" disabled>Select a Category</option> 
+
+            {Categories.map((category)=> (
+              <option value={category}>{category}</option>
+            ))}
+          </select>
           <input
             type="number"
             className="form-control mt-3"
@@ -158,11 +188,11 @@ if(data && data.result){
               type="submit"
               className="btn btn-success form-control mt-3"
             >
-              Submit
+              {id ? "Update": "Create"}
             </button>
             </div>
             <div className="col-6">
-              <a onClick={()=> navigate(-1)} className="btn btn-secondary form-control mt-3">
+              <a onClick={()=> navigate("/menuItem/menuitemlist")} className="btn btn-secondary form-control mt-3">
                 Back to Menu Items
               </a>
             </div>

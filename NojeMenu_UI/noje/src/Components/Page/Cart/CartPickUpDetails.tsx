@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { useInitiatePaymentMutation } from '../../../Apis/paymentApi.ts';
@@ -6,7 +6,6 @@ import inputHelper from '../../../Helper/inputHelper.ts';
 import { apiResponse, cartItemModel } from '../../../Interfaces';
 import { RootState } from '../../../Storage/Redux/store';
 import MiniLoader from '../Common/MiniLoader.tsx';
-
 
 export default function CartPickUpDetails() {
     const [loading, setLoading] = useState(false);
@@ -37,13 +36,17 @@ export default function CartPickUpDetails() {
         setUserInput(tempData);
     };
 
-    // useEffect(() => {
-    //   setUserInput({
-    //     name: userData.fullName,
-    //     email: userData.email,
-    //     phoneNumber: "",
-    //   });
-    // }, [userData]);
+
+
+
+     useEffect(() => {
+      setUserInput({
+         name: userData.fullName,
+         email: userData.email,
+         phoneNumber: "",
+         address:"",
+       });
+     }, [userData]);
 
 
 const handleSubmit = async(e: React.FormEvent<HTMLFormElement>)=>{
