@@ -11,8 +11,10 @@ import Register from "./Register.tsx";
 import ShoppingCart from "./ShoppingCart.tsx";
 import MyOrders from "./Order/MyOrders.tsx";
 import OrderDetails from "./Order/OrderDetails.tsx";
+import AllOrders from "./Order/AllOrders.tsx";
 
 export {
+  AllOrders,
   OrderDetails,
   MyOrders,
   AccessDenied,
