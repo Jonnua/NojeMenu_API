@@ -1,4 +1,4 @@
-import jwtDecode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -46,9 +46,9 @@ const handleUserInput = (e: React.ChangeEvent<HTMLInputElement>) =>{
     };
 
 
-    return( 
-         <div className="container text-center">
-          {loading && <MainLoader />}
+    return (
+      <div className="container text-center">
+        {loading && <MainLoader />}
         <form method="post" onSubmit={handleSubmit}>
           <h1 className="mt-5">Login</h1>
           <div className="mt-5">
