@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRegisterUserMutation } from "../Apis/authApi.ts";
-import MainLoader from "../Components/Page/MenuItems/Common/MainLoader.tsx";
 import inputHelper from "../Helper/inputHelper.ts";
 import toastNotify from "../Helper/taostNotify.ts";
 import apiResponse from "../Interfaces/apiResponse.ts";
 import { SD_Roles } from "../Utility/SD.ts";
+import MainLoader from "../Components/Page/Common/MainLoader.tsx";
 
 function Register() {
   const [registerUser] = useRegisterUserMutation();

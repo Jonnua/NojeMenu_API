@@ -4,7 +4,9 @@ import { useGetMenuItemsQuery } from "../../../Apis/menuItemApi.ts";
 import { menuItemModel } from "../../../Interfaces";
 import { setMenuItem } from "../../../Storage/Redux/menuItemSlice.ts";
 import MenuItemCard from "../MenuItems/MenuItemCard.tsx";
-import MainLoader from "./Common/MainLoader.tsx";
+import MainLoader from "../Common/MainLoader.tsx";
+
+
 
 function MenuItemList() {
 

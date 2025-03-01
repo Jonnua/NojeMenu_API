@@ -5,7 +5,9 @@ import { useUpdateShoppingCartMutation } from "../../../Apis/shoppingCartApi.ts"
 import toastNotify from "../../../Helper/taostNotify.ts";
 import { apiResponse, menuItemModel, userModel } from '../../../Interfaces';
 import { RootState } from "../../../Storage/Redux/store";
-import MiniLoader from "./Common/MiniLoader.tsx";
+import MiniLoader from "../Common/MiniLoader.tsx";
+
+
 
 
 interface Props {

@@ -25,4 +25,4 @@ function MainLoader() {
   );
 }
 
-export default MainLoader
+export default MainLoader;

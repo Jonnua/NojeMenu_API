@@ -5,7 +5,9 @@ import { useInitiatePaymentMutation } from '../../../Apis/paymentApi.ts';
 import inputHelper from '../../../Helper/inputHelper.ts';
 import { apiResponse, cartItemModel } from '../../../Interfaces';
 import { RootState } from '../../../Storage/Redux/store';
-import MiniLoader from '../MenuItems/Common/MiniLoader.tsx';
+import MiniLoader from '../Common/MiniLoader.tsx';
+
+
 export default function CartPickUpDetails() {
     const [loading, setLoading] = useState(false);
     const shoppingCartFromStore : cartItemModel[] = useSelector(
@@ -116,15 +118,14 @@ const handleSubmit = async(e: React.FormEvent<HTMLFormElement>)=>{
           <h5>Grand Total : ${grandTotal.toFixed(2)}</h5>
           <h5>No of items : {totalItems}</h5>
         </div>
-      </div>
+      </div >
       <button
         type="submit"
         className="btn btn-lg btn-success form-control mt-3" disabled={loading}
       >
-        {loading? <MiniLoader/>:"Looks Good? Place Order!"}
-      </button>
-    </form>
-  </div>
-    
-  )
+       {loading ? <MiniLoader />: "Looks Good? Place Order!"}
+        </button>
+      </form>
+    </div>
+  );
 }
