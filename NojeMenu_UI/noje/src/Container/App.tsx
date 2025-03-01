@@ -1,4 +1,4 @@
-import jwt_decode from "jwt-decode";
+import jwtDecode from "jwt-decode";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
@@ -32,7 +32,7 @@ function App() {
   useEffect(() => {
     const localToken = localStorage.getItem("token");
     if (localToken) {
-      const { fullName, id, email, role }: userModel = jwt_decode(localToken);
+      const { fullName, id, email, role }: userModel = jwtDecode(localToken);
       dispatch(setLoggedInUser({ fullName, id, email, role }));
     }
   }, []);

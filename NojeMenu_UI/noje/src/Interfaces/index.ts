@@ -3,5 +3,14 @@ import cartItemModel from "./cartItemModel";
 import menuItemModel from "./menuItemModel";
 import shoppingCartModel from "./shoppingCartModel";
 import userModel from "./userModel";
-export type { apiResponse, cartItemModel, menuItemModel, shoppingCartModel, userModel };
-
+import orderDetail from "./orderDetail";
+import orderHeader from "./orderHeader";
+export type {
+  orderDetail,
+  orderHeader,
+  apiResponse,
+  cartItemModel,
+  menuItemModel,
+  shoppingCartModel,
+  userModel,
+};

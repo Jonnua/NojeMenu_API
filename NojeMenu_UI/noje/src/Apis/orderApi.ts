@@ -6,21 +6,19 @@ const orderApi = createApi({
     baseUrl: "https://nojemenuapi.azurewebsites.net/api/",
   }),
   tagTypes: ["Orders"],
-
-
   endpoints: (builder) => ({
     createOrder: builder.mutation({
       query: (orderDetails) => ({
         url: "order",
         method: "POST",
-        headers:{
-            "Content-type": "application/json",
+        headers: {
+          "Content-type": "application/json",
         },
-        body:orderDetails,
+        body: orderDetails,
       }),
     }),
     getAllOrders: builder.query({
-      query: (userId) => ({
+      query: ({userId}) => ({
         url: "order",
         params: {
           userId: userId,
