@@ -9,10 +9,10 @@ export const menuItemSlice = createSlice({
     name: "MenuItem",
     initialState: initialState,
     reducers: {
-        setMenuItem: (state,action) =>{
+        setMenuItem: (state, action) =>{
             state.menuItem = action.payload;
         },
-        setSearchItem: (state,action) => {
+        setSearchItem: (state, action) => {
             state.search = action.payload;
         },
     },
