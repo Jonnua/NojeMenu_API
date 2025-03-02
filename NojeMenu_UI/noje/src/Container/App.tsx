@@ -1,5 +1,5 @@
 import { jwtDecode } from "jwt-decode";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import { useGetShoppingCartQuery } from "../Apis/shoppingCartApi.ts";
@@ -23,11 +23,9 @@ import { setLoggedInUser } from "../Storage/Redux/userAuthSlice.ts";
 
 function App() {
   const dispatch = useDispatch();
-  const userData: userModel = useSelector(
-    (state: RootState) => state.userAuthStore
-  );
-
-  const { data, isLoading } = useGetShoppingCartQuery(userData.id);
+  const [skip, setSkip] = useState(true);
+  const userData: userModel = useSelector( (state: RootState) => state.userAuthStore);
+  const { data, isLoading } = useGetShoppingCartQuery(userData.id,{skip:skip,});
 
   useEffect(() => {
     const localToken = localStorage.getItem("token");
@@ -38,10 +36,17 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (!isLoading) {
+    if (!isLoading && data) {
+      console.log(data);
       dispatch(setShoppingCart(data.result?.cartItems));
     }
   }, [data]);
+
+  useEffect(() => {
+    if(userData.id) setSkip(false);
+  },[userData]);
+
+
 
   return (
     <div>
