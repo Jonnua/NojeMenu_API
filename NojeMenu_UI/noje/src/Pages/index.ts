@@ -3,7 +3,7 @@ import AuthenticationTest from "./AuthenticationTest.tsx";
 import AuthenticationTestAdmin from "./AuthenticationTestAdmin.tsx";
 import Home from "./Home.tsx";
 import Login from "./Login.tsx";
-import MenuItemList from "../Components/Page/Home/MenuItemList.tsx";
+import MenuItemList from "./MenuItem/MenuItemList.tsx";
 import MenuItemUpsert from "./MenuItem/MenuItemUpsert.tsx";
 import MenuItemDetails from "./MenuItemDetails.tsx";
 import NotFound from "./NotFound.tsx";
