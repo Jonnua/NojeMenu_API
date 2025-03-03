@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Noje_MenuAPI.Data;
@@ -20,7 +21,7 @@ namespace NojeMenu_API.Controllers
             _db = db;
             _response = new ApiResponse();
         }
-
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<ApiResponse>> GetOrders(string? userId)
         {

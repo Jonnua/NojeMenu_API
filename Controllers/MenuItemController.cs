@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Noje_MenuAPI.Data;
@@ -57,6 +58,7 @@ namespace NojeMenu_API.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = SD.Role_Admin)]
         public async Task<ActionResult<ApiResponse>> CreateMenuItem([FromForm] MenuItemCreateDTO menuItemCreateDTO)
         {
             try
@@ -99,6 +101,7 @@ namespace NojeMenu_API.Controllers
             return _response;
         }
 
+        [Authorize(Roles = SD.Role_Admin)]
         [HttpPut("{id:int}")]
         public async Task<ActionResult<ApiResponse>> UpdateMenuItem(int id, [FromForm] MenuItemUpdateDTO menuItemUpdateDTO)
         {
@@ -154,6 +157,7 @@ namespace NojeMenu_API.Controllers
             return _response;
         }
 
+        [Authorize(Roles = SD.Role_Admin)]
         [HttpDelete("{id:int}")]
         public async Task<ActionResult<ApiResponse>> DeleteMenuItem(int id)
         {
