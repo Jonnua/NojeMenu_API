@@ -44,9 +44,11 @@ namespace NojeMenu_API.Controllers
                 if (!string.IsNullOrEmpty(searchString))
                 {
                     orderHeaders = orderHeaders
-                        .Where(u => u.PickupPhoneNumber.ToLower().Contains(searchString.ToLower()) ||
-                    u.PickupEmail.ToLower().Contains(searchString.ToLower())
-                    || u.PickupName.ToLower().Contains(searchString.ToLower()));
+    .Where(u => u.PickupPhoneNumber.ToLower().Contains(searchString.ToLower()) ||
+                u.PickupEmail.ToLower().Contains(searchString.ToLower()) ||
+                u.PickupName.ToLower().Contains(searchString.ToLower()) ||
+                u.PickupAddress.ToLower().Contains(searchString.ToLower()));
+
                 }
                 if (!string.IsNullOrEmpty(status))
                 {
