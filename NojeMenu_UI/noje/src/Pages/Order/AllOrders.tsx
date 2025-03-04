@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Storage/Redux/store";
 import { useGetAllOrdersQuery } from "../../Apis/orderApi.ts";
@@ -7,6 +7,7 @@ import MainLoader from "../../Components/Page/Common/MainLoader.tsx";
 import withAdminAuth from "../../HOC/withAdminAuth.tsx";
 import inputHelper from "../../Helper/inputHelper.ts";
 import { SD_Status } from "../../Utility/SD.ts";
+import orderHeaderModel from "../../Interfaces/orderHeaderModel.ts";
 const filterOptions = [
   "All",
   SD_Status.CONFIRMED,
@@ -18,6 +19,7 @@ const filterOptions = [
 function AllOrders() {
   const { data, isLoading } = useGetAllOrdersQuery("");
   const [filters, setFilters] = useState({ searchString: "", status: "" });
+  const [orderData, setOrderData] = useState([]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -25,6 +27,33 @@ function AllOrders() {
     const tempValue = inputHelper(e, filters);
     setFilters(tempValue);
   };
+
+  const handleFilters = () => {
+    const tempData = data.result.filter((orderData: orderHeaderModel) => {
+      if (
+        (orderData.pickupName &&
+          orderData.pickupName.includes(filters.searchString)) ||
+        (orderData.pickupEmail &&
+          orderData.pickupEmail.includes(filters.searchString)) ||
+        (orderData.pickupPhoneNumber &&
+          orderData.pickupPhoneNumber.includes(filters.searchString))
+      ) {
+        return orderData;
+      }
+    });
+
+    const finalArray = tempData.filter((orderData: orderHeaderModel) =>
+      filters.status !== "" ? orderData.status === filters.status : orderData
+    );
+
+    setOrderData(finalArray);
+  };
+
+  useEffect(() => {
+    if (data) {
+      setOrderData(data.result);
+    }
+  }, [data]);
 
   return (
     <>
@@ -46,14 +75,19 @@ function AllOrders() {
                 onChange={handleChange}
                 name="status"
               >
-                {filterOptions.map((item) => (
-                  <option value={item === "All" ? "" : item}>{item}</option>
+                {filterOptions.map((item, index) => (
+                  <option key={index} value={item === "All" ? "" : item}>{item}</option>
                 ))}
               </select>
-              <button className="btn btn-outline-success">Filter</button>
+              <button
+                className="btn btn-outline-success"
+                onClick={handleFilters}
+              >
+                Filter
+              </button>
             </div>
           </div>
-          <OrderList isLoading={isLoading} orderData={data.result} />
+          <OrderList isLoading={isLoading} orderData={orderData} />
         </>
       )}
     </>
