@@ -4,9 +4,9 @@ const orderApi = createApi({
   reducerPath: "orderApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "https://nojemenuapi.azurewebsites.net/api/",
-    prepareHeaders:(headers:Headers, api) =>{
+    prepareHeaders: (headers: Headers, api) => {
       const token = localStorage.getItem("token");
-      token && headers.append("Authorization","Bearer "+token);
+      token && headers.append("Authorization", "Bearer " + token);
     },
   }),
   tagTypes: ["Orders"],
@@ -23,12 +23,10 @@ const orderApi = createApi({
       invalidatesTags: ["Orders"],
     }),
     getAllOrders: builder.query({
-      query: ({userId, searchString, status}) => ({
+      query: ({ userId }) => ({
         url: "order",
         params: {
-          ...(userId && { userId }),
-          ...(searchString && { searchString }),
-          ...(status && { status }),
+          userId: userId,
         },
       }),
       providesTags: ["Orders"],
@@ -39,7 +37,7 @@ const orderApi = createApi({
       }),
       providesTags: ["Orders"],
     }),
-   updateOrderHeader: builder.mutation({
+    updateOrderHeader: builder.mutation({
       query: (orderDetails) => ({
         url: "order/" + orderDetails.orderHeaderId,
         method: "PUT",

@@ -8,6 +8,8 @@ import withAdminAuth from "../../HOC/withAdminAuth.tsx";
 import inputHelper from "../../Helper/inputHelper.ts";
 import { SD_Status } from "../../Utility/SD.ts";
 import orderHeaderModel from "../../Interfaces/orderHeaderModel.ts";
+
+
 const filterOptions = [
   "All",
   SD_Status.CONFIRMED,
@@ -17,35 +19,33 @@ const filterOptions = [
 ];
 
 function AllOrders() {
-  const [filters, setFilters] = useState({ searchString: "", status: "" });
-  const [orderData, setOrderData] = useState([]);
+  const { data, isLoading } = useGetAllOrdersQuery("");
+  const [filters, setFilters] = useState({ searchString: "", status: "" });  const [orderData, setOrderData] = useState([]);
 
-  const [apiFilters, setApiFilters] = useState({
-    searchString: "",
-    status: "",
-  });
-
-  const { data, isLoading } = useGetAllOrdersQuery({
-    ...(apiFilters && {
-      searchString: apiFilters.searchString,
-      status: apiFilters.status,
-    }),
-  });
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    const tempValue = inputHelper(e, filters);
-    setFilters(tempValue);
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    setFilters({ ...filters, [e.target.name]: e.target.value });
   };
 
   const handleFilters = () => {
-    setApiFilters({
-      searchString: filters.searchString,
-      status: filters.status,
-    });
-  };
+  const tempData = data.result.filter((orderData: orderHeaderModel) => {
+    return (
+      (orderData.pickupName &&
+        orderData.pickupName.includes(filters.searchString)) ||
+      (orderData.pickupEmail &&
+        orderData.pickupEmail.includes(filters.searchString)) ||
+      (orderData.pickupPhoneNumber &&
+        orderData.pickupPhoneNumber.includes(filters.searchString))
+    );
+  });
 
+  const finalArray = tempData.filter((orderData: orderHeaderModel) =>
+    filters.status !== "" ? orderData.status === filters.status : true 
+  );
+
+  setOrderData(finalArray);
+};
+
+  
   useEffect(() => {
     if (data) {
       setOrderData(data.result);
@@ -60,24 +60,26 @@ function AllOrders() {
           <div className="d-flex align-items-center justify-content-between mx-5 mt-5">
             <h1 className="text-success">Order List</h1>
             <div className="d-flex" style={{ width: "40%" }}>
-              <input
-                type="text"
-                className="form-control mx-2"
-                placeholder="Search Name, Email or Phone"
-                name="searchString"
-                onChange={handleChange}
-              />
-              <select
-                className="form-select w-50 mx-2"
-                onChange={handleChange}
-                name="status"
-              >
-                {filterOptions.map((item, index) => (
-                  <option key={index} value={item === "All" ? "" : item}>
-                    {item}
-                  </option>
-                ))}
-              </select>
+            <input
+  type="text"
+  className="form-control mx-2"
+  placeholder="Search Name, Email or Phone"
+  name="searchString"
+  value={filters.searchString}
+  onChange={handleInputChange}
+/>
+<select
+  className="form-select w-50 mx-2"
+  name="status"
+  value={filters.status}
+  onChange={handleInputChange}
+>
+  {filterOptions.map((item, index) => (
+    <option key={index} value={item === "All" ? "" : item}>
+      {item}
+    </option>
+  ))}
+</select>
               <button
                 className="btn btn-outline-success"
                 onClick={handleFilters}
