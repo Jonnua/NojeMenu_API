@@ -5,7 +5,6 @@ namespace NojeMenu_API.Models.Dto
 {
     public class MenuItemCreateDTO
     {
-       
         [Required]
         public string Name { get; set; }
         public string Description { get; set; }
