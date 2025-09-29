@@ -7,12 +7,13 @@ import shoppingCartApi from "../../Apis/shoppingCartApi.ts";
 import { menuItemReducer } from "../Redux/menuItemSlice.ts";
 import { shoppingCartReducer } from "./shoppingCartSlice.ts";
 import { userAuthReducer } from "./userAuthSlice.ts";
-
+import reservationApi from "../../Apis/reservationApi.ts";
 const store = configureStore({
     reducer: {
       menuItemStore: menuItemReducer,
       shoppingCartStore :  shoppingCartReducer,
       userAuthStore :  userAuthReducer,
+      [reservationApi.reducerPath]: reservationApi.reducer,
       [menuItemApi.reducerPath]: menuItemApi.reducer,
       [shoppingCartApi.reducerPath]: shoppingCartApi.reducer,
       [authApi.reducerPath]: authApi.reducer,
@@ -27,6 +28,7 @@ const store = configureStore({
      .concat(orderApi.middleware)
     .concat(paymentApi.middleware)
     .concat(shoppingCartApi.middleware)
+    .concat(reservationApi.middleware)
     
 });
 

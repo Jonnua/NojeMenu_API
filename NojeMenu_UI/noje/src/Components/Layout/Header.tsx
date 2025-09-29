@@ -56,39 +56,48 @@ export default function Header() {
               </li>
               {userData.role == SD_Roles.ADMIN ? (
                 <li className="nav-item dropdown">
-                  <a
-                    className="nav-link dropdown-toggle"
-                    href="#"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    Admin Panel
-                  </a>
-                  <ul className="dropdown-menu">
-                  <li 
-                  style={{ cursor: "pointer" }} 
-                  className="dropdown-item" 
-                  onClick={() => navigate("menuItem/menuitemlist")}>
-                        Menu Item
-                    </li>
-                    <li
-                      style={{ cursor: "pointer" }}
-                      className="dropdown-item"
-                      onClick={() => navigate("order/myorders")}
-                    >
-                      My Orders
-                    </li>
-                    <li
-                      style={{ cursor: "pointer" }}
-                      className="dropdown-item"
-                      onClick={() => navigate("order/allOrders")}
-                    >
-                      All Orders
-                    </li>
-                    
-                  </ul>
-                </li>
+  <a
+    className="nav-link dropdown-toggle"
+    href="#"
+    role="button"
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
+  >
+    Admin Panel
+  </a>
+  <ul className="dropdown-menu">
+    <li
+      style={{ cursor: "pointer" }}
+      className="dropdown-item"
+      onClick={() => navigate("menuItem/menuitemlist")}
+    >
+      Menu Item
+    </li>
+    <li
+      style={{ cursor: "pointer" }}
+      className="dropdown-item"
+      onClick={() => navigate("order/myorders")}
+    >
+      My Orders
+    </li>
+    <li
+      style={{ cursor: "pointer" }}
+      className="dropdown-item"
+      onClick={() => navigate("order/allOrders")}
+    >
+      All Orders
+    </li>
+    {/* KTU E SHTOJME */}
+    <li
+      style={{ cursor: "pointer" }}
+      className="dropdown-item"
+      onClick={() => navigate("reservations")}
+    >
+      Reservations
+    </li>
+  </ul>
+</li>
+
               ) : (
                 <li className="nav-item">
                   <NavLink

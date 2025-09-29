@@ -29,6 +29,7 @@ import { RootState } from "../Storage/Redux/store.ts";
 import { setLoggedInUser } from "../Storage/Redux/userAuthSlice.ts";
 import Reservations from "../Components/Page/Reservation/Reservations.tsx";
 import ReservationForm from "../Components/Page/Reservation/ReservationForm.tsx";
+import ReservationDetails from "../Components/Page/Reservation/ReservationDetails.tsx";
 function App() {
   const dispatch = useDispatch();
   const [skip, setSkip] = useState(true);
@@ -98,6 +99,10 @@ function App() {
 
           <Route path="/reservations" element={<Reservations />} />
           <Route path="/reservations/new" element={<ReservationForm />} />
+          <Route
+            path="/reservations/details/:id"
+            element={<ReservationDetails />}
+          />
 
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
